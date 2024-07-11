@@ -138,4 +138,8 @@ func main() {
 			}
 		}
 	}
+
+	color.Cyan("-----------------------------")
+	color.Cyan("Done for the day")
+	color.Cyan("We made %d pizzas, failed %d pizzas, with %d Attempts in total", pizzasMade, pizzasFailed, total)
 }
