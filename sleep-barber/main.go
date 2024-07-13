@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -39,6 +40,10 @@ func main() {
 
 	// add barbers
 	shop.addBarber("Frankie")
+	shop.addBarber("Gerry")
+	shop.addBarber("Milly")
+	shop.addBarber("Jamie")
+	shop.addBarber("Jerry")
 	// start the barbershop as a go routine
 	shopClosing := make(chan bool)
 	closed := make(chan bool)
@@ -61,9 +66,12 @@ func main() {
 				return
 			case <- time.After(time.Millisecond * time.Duration(randomMilliseconds)):
 				// add a client after random milliseconds
+				shop.addClient(fmt.Sprintf("Client #%d", i))
+				i++
 			}
 		}
 	}()
 	// block until the barbershop is closed
-	time.Sleep(5 * time.Second)
+	// will be executed when we pass true into the closed channel
+	<- closed
 }

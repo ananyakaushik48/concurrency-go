@@ -86,7 +86,10 @@ func (shop *BarberShop) addClient(client string) {
 
 	if shop.Open {
 		select {
-			
+		case shop.ClientsChan <- client:
+			color.Yellow("%s takes a seat in the waiting room", client)
+		default:
+			color.Red("The waiting room is full so %s leaves.", client)
 		}
 	} else {
 		color.Red("The shop is already closed, so %s leaves!", client)
